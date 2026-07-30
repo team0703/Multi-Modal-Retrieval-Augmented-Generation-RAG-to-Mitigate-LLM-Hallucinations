@@ -3,7 +3,7 @@ import time
 from PIL import Image
 
 
-def verify_evidence(query, candidate_text, candidate_image_path, gemini_client, model="gemini-flash-latest", max_retries=3):
+def verify_evidence(query, candidate_text, candidate_image_path, gemini_client, model="gemini-flash-lite-latest", max_retries=3):
     """
     Uses Gemini to score how relevant a retrieved page is to a query.
     Looks at both the extracted text and the actual page image.
@@ -50,12 +50,10 @@ Respond with ONLY the number. No words, no explanation."""
     return 0
 
 
-def verify_candidates(query, candidates, gemini_client, threshold=50, model="gemini-flash-latest", delay=13):
+def verify_candidates(query, candidates, gemini_client, threshold=50, model="gemini-flash-lite-latest", delay=13):
     """
     Runs verify_evidence on each (id, payload, retrieval_score) candidate from
-    hybrid_search, pausing `delay` seconds between calls to stay under the
-    free-tier rate limit (5 requests/minute -> 12s minimum spacing, 13s used
-    for a small safety margin). Returns (passed, all_verified).
+    hybrid_search, pausing `delay` seconds between calls. Returns (passed, all_verified).
     """
     verified = []
     for i, (pid, payload, retrieval_score) in enumerate(candidates):
