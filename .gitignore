@@ -222,3 +222,6 @@ __marimo__/
 
 # Test PDFs — large binaries, re-downloadable via Phase 1 wget commands
 *.pdf
+
+# Test PDFs — large binaries, re-downloadable via Phase 1 wget commands
+*.pdf
